@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Get vis.js stuff -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css"></script>
 
@@ -9,14 +10,22 @@
     <script type="text/javascript" src="./network.dot"></script>
 
     <style type="text/css">
-        #mynetwork {
+/*        #mynetwork {
             width: 1000px;
             height: 1000px;
-            border: 1px solid lightgray;
+            border: 0px solid lightgray;
         }
+*/
+      #mynetwork{
+         width: 100vw;
+         height: 100vh;
+         border: 0px solid lightgray;
+         position: relative;
+      }
     </style>
 </head>
 <body>
+
 <div id="mynetwork"></div>
 
 <script type="text/javascript">
@@ -24,29 +33,7 @@
     // // create a network
     var container = document.getElementById('mynetwork');
 
-    // var DOTstring = 'strict digraph{"Max Bazerman" -> "New Person"; "Max Bazerman" -> "Jeff Fossett"; "Sally Blount" -> "Sophie Leroy"; "Francesca Gino" -> "Hayley Blunden"; "Francesca Gino" -> "Ovul Sezer"; "Francesca Gino" -> "Paul Green"; "Francesca Gino" -> "Jeff Steiner"; "Francesca Gino" -> "Ting Zhang"; "Francesca Gino" -> "Martha Jeong"; "Francesca Gino" -> "Julia Lee"; "Kimberly Wade-Benzoni" -> "Matthew Fox"; "Margaret Neale" -> "Peter Belmi"; "Margaret Neale" -> "Jared Curhan"; "Margaret Neale" -> "Scott Wiltermuth"; "Margaret Neale" -> "Marwan Sinaceur"; "Margaret Neale" -> "Katherine Phillips"; "Margaret Neale" -> "Alison Fragale"; "Margaret Neale" -> "Ashley Martin"; "Margaret Neale" -> "Melissa Thomas-Hunt"; "Margaret Neale" -> "Karen Jehn"; "Margaret Neale" -> "Jeffrey Polzer"; "Margaret Neale" -> "David Daniels"; "Leigh Thompson" -> "Charles Naquin"; "Leigh Thompson" -> "Ashleigh Rosette"; "Leigh Thompson" -> "Laura Kray"; "Scott Wiltermuth" -> "David Newman"; "Scott Wiltermuth" -> "Medha Raj"; "Kimberly Wade-Benzoni" -> "Min Li"; "Kimberly Wade-Benzoni" -> "Morela Hernandez"; "Kimberly Wade-Benzoni" -> "Leigh Tost"; "Marwan Sinaceur" -> "Hajo Adam"; "Marwan Sinaceur" -> "Alvaro San Martin"; "Marwan Sinaceur" -> "Dimitri Vasiljevic"; "Marwan Sinaceur" -> "Otilia Obodaru"; "Marwan Sinaceur" -> "Christophe Haag"; "Katherine Phillips" -> "Denise Loyd"; "Katherine Phillips" -> "Erika Hall"; "Katherine Phillips" -> "Tracy Dumas"; "Katherine Phillips" -> "Robert Lount"; "Katherine Phillips" -> "Ashley Martin"; "Katherine Phillips" -> "Sun Young Kim"; "Eugene Caruso" -> "Zach Burns"; "Eugene Caruso" -> "Jessica Bregant"; "Morela Hernandez" -> "Scott Baker"; "Morela Hernandez" -> "Cristiano Guarana"; "Leigh Tost" -> "Ashley Hardin"; "Elizabeth Mannix" -> "Sujin Lee"; "Elizabeth Mannix" -> "Matthew Rodgers"; "Elizabeth Mannix" -> "Chad Proell"; "Elizabeth Mannix" -> "Wayne Johnson"; "Max Bazerman" -> "Sally Blount"; "Max Bazerman" -> "Francesca Gino"; "Max Bazerman" -> "Margaret Neale"; "Max Bazerman" -> "Katherine Milkman"; "Max Bazerman" -> "Leigh Thompson"; "Max Bazerman" -> "Pinar Fletcher"; "Max Bazerman" -> "Dolly Chugh"; "Max Bazerman" -> "Ariella Kristal"; "Max Bazerman" -> "Kimberly Wade-Benzoni"; "Max Bazerman" -> "Neeru Paharia"; "Max Bazerman" -> "Lucas Coffman"; "Max Bazerman" -> "Lisa Shu"; "Max Bazerman" -> "Eugene Caruso"; "Max Bazerman" -> "Elizabeth Mannix"; "Max Bazerman" -> "Modupe Akinola"; "Max Bazerman" -> "Harris Sondak"; "Max Bazerman" -> "Todd Rogers"; "Max Bazerman" -> "John Beshears"; "Max Bazerman" -> "Terri Kurtzberg"; "Max Bazerman" -> "Ann Tenbrunsel"; "Max Bazerman" -> "Ovul Sezer"; "Max Bazerman" -> "Tom Tripp"; "Max Bazerman" -> "Kathleen McGinn"; "Max Bazerman" -> "Don Moore"; "Max Bazerman" -> "Chia-Jung Tsay"; "Max Bazerman" -> "Ting Zhang"; "Max Bazerman" -> "Kristina Diekmann"; "Max Bazerman" -> "Julia Lee"; "Harris Sondak" -> "Lorie Wadsworth"; "Harris Sondak" -> "James Lavelle"; "Harris Sondak" -> "Sreedhari Desai"; "Harris Sondak" -> "Jared Poole"; "Todd Rogers" -> "Carly Robinson"; "John Beshears" -> "Deniz Aydin"; "John Beshears" -> "Talia Gillis"; "Terri Kurtzberg" -> "Sanghoon Kang"; "Terri Kurtzberg" -> "Liuba Belkin"; "Terri Kurtzberg" -> "Lisa Lewin"; "Margaret Neale" -> "Sally Blount"; "Kathleen McGinn" -> "Alexandra Feldberg"; "Kathleen McGinn" -> "Pinar Fletcher"; "Kathleen McGinn" -> "Hannah Riley Bowles"; "Kathleen McGinn" -> "Marya Besharov"; "Kathleen McGinn" -> "Elizabeth Long Lingo"; "Kathleen McGinn" -> "Nancy Katz"; "Kathleen McGinn" -> "Shelley Brickson"; "Kathleen McGinn" -> "Ryann Manning"; "Kathleen McGinn" -> "Andrew Molinsky"; "Kathleen McGinn" -> "Spela Trefalt"; "Kathleen McGinn" -> "Rachel Arnett"; "Karen Jehn" -> "Sherry Thatcher"; "Karen Jehn" -> "Lorna Doucet"; "Karen Jehn" -> "Danielle Warren"; "Karen Jehn" -> "Lindred Greer"; "Karen Jehn" -> "Sonja Rispens"; "Jeffrey Polzer" -> "Heather Caruso"; "Jeffrey Polzer" -> "Sujin Jang"; "Don Moore" -> "Jenn Logg"; "Don Moore" -> "Uriel Haran"; "Don Moore" -> "Elizabeth Tenney"; "Don Moore" -> "Daylian Cain"; "Don Moore" -> "Joe Radzevick "; "Don Moore" -> "Derek Schatz"; "Kristina Diekmann" -> "Sheli  Walker "; "Kristina Diekmann" -> "McKenzie  Rees"; "Katherine Milkman" -> "Hengchen Dai"; "Katherine Milkman" -> "Edward Chang";}';
-
-    // var mydict = {
-    //     "Max Bazerman": "https://scholar.harvard.edu/bazerman", 
-    //     "Don Moore": "https://haas.berkeley.edu/faculty/moore-don/",
-    //     "New Person": "https:www.google.com/",
-    // };
-
-    // Load node data JSON from https://raw.githubusercontent.com/Fossj117/maxviz/master/node_data.json
-    // var requestURL = 'https://raw.githubusercontent.com/Fossj117/maxviz/master/node_data.json';
-    // var request = new XMLHttpRequest();
-    // request.open('GET', requestURL);
-    // request.responseType = 'json';
-
-    // request.onload = function() {  
-    //   var node_info = request.response;
-    // };
-
-    // request.send();
-
-    // Want to load network from https://raw.githubusercontent.com/Fossj117/maxviz/master/network.dot
-
-
+    // The data 
     var parsedData = vis.network.convertDot(DOTstring);
     var parsedNodes = JSON.parse(node_data)
 
@@ -55,6 +42,7 @@
       edges: parsedData.edges
     };
 
+    // network options! 
     var options = {
       autoResize: true,
       height: '100%',
@@ -66,27 +54,41 @@
       },
       nodes: {
         shape: 'box',
-        size: 20, 
+        // size: 40, 
         font: {
             size: 20
         },
         color: {
-            highlight: {background: 'red'}
+            highlight: {background: '#e06478', border:'#e06478'},
+            background: '#9bc1ff',
+            border: '#9bc1ff',
+//            border: 'black'
+
         }
       },
       edges: {
         color: {
-            highlight: 'red'
+            highlight: '#a31e32'
         }
-      }
+      },
+      physics: {
+        forceAtlas2Based: {
+            gravitationalConstant: -30,
+            centralGravity: 0.005,
+            springLength: 200,
+            springConstant: 0.18
+        },
+        maxVelocity: 146,
+        solver: 'forceAtlas2Based',
+        timestep: 0.35,
+        stabilization: {iterations: 150}
+    }
     };
 
     // create a network
     var network = new vis.Network(container, data, options);
 
-
-
-    // Double click logic
+    // Double click logic & link sanitizing
     var prefix = 'http://';
     var prefix2 = 'https://';
 
@@ -102,7 +104,6 @@
           window.open(s);
         }
     })
-
 
 </script>
 </body>
