@@ -48,6 +48,7 @@
 
 
     var parsedData = vis.network.convertDot(DOTstring);
+    var parsedNodes = JSON.parse(node_data)
 
     var data = {
       nodes: parsedData.nodes,
@@ -83,11 +84,22 @@
     // create a network
     var network = new vis.Network(container, data, options);
 
+
+
     // Double click logic
+    var prefix = 'http://';
+    var prefix2 = 'https://';
+
     network.on("doubleClick", function (params) {
         console.log(params.nodes[0])
-        if (params.nodes[0] in mydict){ // check if key is there 
-            window.open(encodeURI(node_info[params.nodes[0]]["site"]));
+        if (params.nodes[0] in parsedNodes){ // check if key is there 
+
+          var s = encodeURI(parsedNodes[params.nodes[0]]["site"])
+          if (s.substr(0, prefix.length) !== prefix && s.substr(0, prefix2.length) !== prefix2)
+          {
+              s = prefix2 + s;
+          }
+          window.open(s);
         }
     })
 
