@@ -1,6 +1,7 @@
 import pandas as pd 
 import networkx as nx
 import json
+import os
 
 def links_data_to_dot_file(infile="./network_data_raw/Max_Network_Data_Clean_Links.csv", outfile='./network.dot'):
 	'''Read in the network links data and write the network structure to a dot file''' 
@@ -12,7 +13,19 @@ def links_data_to_dot_file(infile="./network_data_raw/Max_Network_Data_Clean_Lin
 
 		G.add_edge(link['Parent_First_Last'].decode('utf-8'), link['Child_First_Last'].decode('utf-8'))
 
-	nx.write_dot(G, outfile)
+	nx.write_dot(G, 'temp.txt')
+
+	with open('temp.txt', "r") as f:
+		with open(outfile, 'w') as out: 
+
+			for ix, line in enumerate(f): 
+				if ix == 0: 
+					out.write("var DOTstring = '"+line.strip())
+				else: 
+					out.write(line.strip())
+			out.write("'")
+
+	os.remove('temp.txt')
 
 def node_metadata_to_file(infile="./network_data_raw/Max_Network_Data_Clean_People.csv", outfile='./node_data.json'):
 	'''Read in the node metadata and write relevant pieces to a JSON'''
@@ -26,8 +39,11 @@ def node_metadata_to_file(infile="./network_data_raw/Max_Network_Data_Clean_Peop
 		if not pd.isnull(node['Website']): 
 			kv[node['First_Last']] = {'site': node['Website']}
 
+	# Write to file with some hacks to later load with JS
 	with open(outfile, "w") as f:
-		json.dump(kv, f, indent=4, separators=(',', ': '))
+		f.write("var node_data = '")
+		json.dump(kv, f)
+		f.write("'")
 
 
 if __name__ == "__main__": 
