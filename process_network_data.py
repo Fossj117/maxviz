@@ -40,7 +40,7 @@ def links_data_to_dot_file(infile="./network_data_raw/Max_Network_Data_Clean_Lin
 	os.remove('raw_network.dot')
 
 
-def node_metadata_to_file(infile="./network_data_raw/Max_Network_Data_Clean_People.csv", outfile='./node_data.json'):
+def node_metadata_to_file(infile="./network_data_raw/Max_Network_Data_Clean_People_Final.csv", outfile='./node_data.json'):
 	'''
 	Read in the node metadata and write relevant pieces to a JSON. 
 	This also does the graph processing to find the steps for each node 
