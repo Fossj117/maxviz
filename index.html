@@ -10,12 +10,7 @@
     <script type="text/javascript" src="./network.dot"></script>
 
     <style type="text/css">
-/*        #mynetwork {
-            width: 1000px;
-            height: 1000px;
-            border: 0px solid lightgray;
-        }
-*/
+
       #mynetwork{
          width: 100vw;
          height: 100vh;
@@ -34,11 +29,22 @@
     var container = document.getElementById('mynetwork');
 
     // The data 
-    var parsedData = vis.network.convertDot(DOTstring);
+    var parsedData = vis.network.convertDot(DOTstring)
+
+    var parsedData_vis = new vis.DataSet(parsedData.nodes);
     var parsedNodes = JSON.parse(node_data)
 
+    var color_lookup = {0: '#011f4b', 1: '#005b96', 2: '#6497b1', 3: '#b3cde0'}
+
+    // Merge colors into the nodes data set
+    for(var key in parsedNodes){
+      nodecolor = color_lookup[parsedNodes[key]['steps']]
+      parsedData_vis.update({id: key, color: {background: nodecolor, border: 'grey'}})
+    }
+
+    // Data for network viz
     var data = {
-      nodes: parsedData.nodes,
+      nodes: parsedData_vis,
       edges: parsedData.edges
     };
 
@@ -56,15 +62,13 @@
         shape: 'box',
         // size: 40, 
         font: {
-            size: 20
+            size: 20,
+            color: 'white'
         },
         color: {
             highlight: {background: '#e06478', border:'#e06478'},
-            background: '#9bc1ff',
-            border: '#9bc1ff',
-//            border: 'black'
-
-        }
+            background: '#9bc1ff'
+        },
       },
       edges: {
         color: {
